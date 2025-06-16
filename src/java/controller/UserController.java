@@ -4,56 +4,111 @@ import dao.UserDAO;
 import dto.UserDTO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.*;
+
 import java.io.IOException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @WebServlet("/UserController")
 public class UserController extends HttpServlet {
-    protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse res)
+            throws ServletException, IOException {
+
         String action = req.getParameter("action");
 
-        if ("Login".equals(action)) {
-            // Chuyển sang doPost hoặc redirect form
-        } else if ("Logout".equals(action)) {
-            req.getSession().invalidate();
+        if (action == null) {
             res.sendRedirect("login.jsp");
-        } else if ("ListUsers".equals(action)) {
-           
-            req.setAttribute("USER_LIST", list);
-            req.getRequestDispatcher("userList.jsp").forward(req, res);
+            return;
+        }
+
+        switch (action) {
+            case "Login":
+                res.sendRedirect("login.jsp");
+                break;
+
+            case "Logout":
+                req.getSession().invalidate();
+                res.sendRedirect("login.jsp");
+                break;
+
+            case "ListUsers":
+                try {
+                    List<UserDTO> list = new UserDAO().getAllUsers();
+                    req.setAttribute("USER_LIST", list);
+                    req.getRequestDispatcher("userList.jsp").forward(req, res);
+                } catch (Exception ex) {
+                    Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
+                    res.sendError(500, "Internal Server Error");
+                }
+                break;
+
+            default:
+                res.sendError(HttpServletResponse.SC_NOT_FOUND, "Unknown action: " + action);
         }
     }
 
-    protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse res)
+            throws ServletException, IOException {
+
         String action = req.getParameter("action");
 
-        if ("Login".equals(action)) {
-            String userID = req.getParameter("userID");
-            String password = req.getParameter("password");
-            UserDTO user = UserDAO.checkLogin(userID, password);
-            if (user != null) {
-                req.getSession().setAttribute("LOGIN_USER", user);
-                res.sendRedirect("welcome.jsp");
-            } else {
-                req.setAttribute("ERROR", "Sai tài khoản hoặc mật khẩu.");
-                req.getRequestDispatcher("login.jsp").forward(req, res);
-            }
-        } else if ("AddUser".equals(action)) {
-            String userID = req.getParameter("userID");
-            String fullName = req.getParameter("fullName");
-            String roleID = req.getParameter("roleID");
-            String password = req.getParameter("password");
-            String phone = req.getParameter("phone");
-            UserDTO user = new UserDTO(userID, fullName, roleID, password, phone);
-            boolean ok = UserDAO.insert(user);
-            if (ok) res.sendRedirect("MainController?action=ListUsers");
-            else {
-                req.setAttribute("ERROR", "Thêm user thất bại");
-                req.getRequestDispatcher("addUser.jsp").forward(req, res);
-            }
+        if (action == null) {
+            res.sendRedirect("login.jsp");
+            return;
+        }
+
+        switch (action) {
+            case "Login":
+                String userID = req.getParameter("userID").trim();
+                String password = req.getParameter("password").trim();
+
+                try {
+                    UserDTO user = new UserDAO().login(userID, password);
+                    if (user != null) {
+                        req.getSession().setAttribute("LOGIN_USER", user);
+                        res.sendRedirect("welcome.jsp");
+                    } else {
+                        req.setAttribute("ERROR", "Sai tài khoản hoặc mật khẩu.");
+                        req.getRequestDispatcher("login.jsp").forward(req, res);
+                    }
+                } catch (Exception ex) {
+                    Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
+                    req.setAttribute("ERROR", "Lỗi đăng nhập.");
+                    req.getRequestDispatcher("login.jsp").forward(req, res);
+                }
+                break;
+
+            case "AddUser":
+                try {
+                    String newUserID = req.getParameter("userID").trim();
+                    String fullName = req.getParameter("fullName").trim();
+                    String roleID = req.getParameter("roleID").trim();
+                    String newPassword = req.getParameter("password").trim();
+                    String phone = req.getParameter("phone").trim();
+
+                    UserDTO newUser = new UserDTO(newUserID, fullName, roleID, newPassword, phone);
+                    boolean ok = new UserDAO().create(newUser);
+
+                    if (ok) {
+                        res.sendRedirect("UserController?action=ListUsers");
+                    } else {
+                        req.setAttribute("ERROR", "Thêm user thất bại");
+                        req.getRequestDispatcher("addUser.jsp").forward(req, res);
+                    }
+                } catch (Exception ex) {
+                    Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
+                    req.setAttribute("ERROR", "Lỗi server khi thêm user.");
+                    req.getRequestDispatcher("addUser.jsp").forward(req, res);
+                }
+                break;
+
+            default:
+                res.sendError(HttpServletResponse.SC_NOT_FOUND, "Unknown action: " + action);
         }
     }
 }
