@@ -21,7 +21,7 @@ public class UserController extends HttpServlet {
             req.getSession().invalidate();
             res.sendRedirect("login.jsp");
         } else if ("ListUsers".equals(action)) {
-            List<UserDTO> list = UserDAO.getAllUsers();
+           
             req.setAttribute("USER_LIST", list);
             req.getRequestDispatcher("userList.jsp").forward(req, res);
         }
