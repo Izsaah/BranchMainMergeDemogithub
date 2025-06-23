@@ -3,10 +3,12 @@ package controller;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
+
 import java.io.IOException;
 
 @WebServlet("/MainController")
 public class MainController extends HttpServlet {
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
@@ -19,51 +21,78 @@ public class MainController extends HttpServlet {
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         String action = request.getParameter("action");
-        String controller = "login.jsp"; // default page
+        String controller = "login.jsp"; // default fallback page
 
         try {
-            if (action == null) {
+            if (action == null || action.trim().isEmpty()) {
                 controller = "login.jsp";
-            } else if (action.equals("Login")) {
-                controller = "UserController?action=Login";
-            } else if (action.equals("Logout")) {
-                controller = "UserController?action=Logout";
-            } else if (action.equals("AddUser")) {
-                controller = "UserController?action=AddUser";
-            } else if (action.equals("ListUsers")) {
-                controller = "UserController?action=ListUsers";
-            } else if (action.equals("UpdateUser")) {
-                controller = "UserController?action=UpdateUser";
-            } else if (action.equals("DeleteUser")) {
-                controller = "UserController?action=DeleteUser";
-            } else if (action.equals("AddProduct")) {
-                controller = "ProductController?action=AddProduct";
-            } else if (action.equals("ListProducts")) {
-                controller = "ProductController?action=ListProducts";
-            } else if (action.equals("UpdateProduct")) {
-                controller = "ProductController?action=UpdateProduct";
-            } else if (action.equals("DeleteProduct")) {
-                controller = "ProductController?action=DeleteProduct";
-            } else if (action.equals("AddCategory")) {
-                controller = "CategoryController?action=AddCategory";
-            } else if (action.equals("ListCategories")) {
-                controller = "CategoryController?action=ListCategories";
-            } else if (action.equals("AddPromotion")) {
-                controller = "PromotionController?action=AddPromotion";
-            } else if (action.equals("ViewCart")) {
-                controller = "CartController?action=ViewCart";
-            } else if (action.equals("Checkout")) {
-                controller = "InvoiceController?action=Checkout";
-            } else if (action.equals("TrackDelivery")) {
-                controller = "DeliveryController?action=TrackDelivery";
-            } else if (action.equals("SubmitReturn")) {
-                controller = "ReturnController?action=SubmitReturn";
-            } else if (action.equals("CustomerSupport")) {
-                controller = "CustomerCareController?action=CustomerSupport";
+            } else {
+                switch (action) {
+                    // User Actions
+                    case "Login":
+                    case "Logout":
+                    case "AddUser":
+                    case "ListUsers":
+                    case "UpdateUser":
+                    case "DeleteUser":
+                        controller = "UserController?action=" + action;
+                        break;
+
+                    // Product Actions
+                    case "AddProduct":
+                    case "ListProducts":
+                    case "UpdateProduct":
+                    case "DeleteProduct":
+                        controller = "ProductController?action=" + action;
+                        break;
+
+                    // Category Actions
+                    case "AddCategory":
+                    case "ListCategories":
+                        controller = "CategoryController?action=" + action;
+                        break;
+
+                    // Promotion
+                    case "AddPromotion":
+                        controller = "PromotionController?action=AddPromotion";
+                        break;
+
+                    // Cart
+                    case "ViewCart":
+                        controller = "CartController?action=ViewCart";
+                        break;
+
+                    // Checkout & Invoice
+                    case "Checkout":
+                        controller = "InvoiceController?action=Checkout";
+                        break;
+
+                    // Delivery
+                    case "TrackDelivery":
+                        controller = "DeliveryController?action=TrackDelivery";
+                        break;
+
+                    // Returns
+                    case "SubmitReturn":
+                        controller = "ReturnController?action=SubmitReturn";
+                        break;
+
+                    // Customer Support
+                    case "CustomerSupport":
+                        controller = "CustomerCareController?action=CustomerSupport";
+                        break;
+
+                    default:
+                        controller = "error.jsp";
+                        request.setAttribute("ERROR", "Unknown action: " + action);
+                        break;
+                }
             }
 
             request.getRequestDispatcher(controller).forward(request, response);
+
         } catch (Exception e) {
             request.setAttribute("ERROR", "Something went wrong: " + e.getMessage());
             request.getRequestDispatcher("error.jsp").forward(request, response);

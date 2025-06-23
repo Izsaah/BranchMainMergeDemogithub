@@ -10,15 +10,15 @@ import java.sql.Date;
  *
  * @author ACER
  */
-public class PromotionDTO {
-   private int promoID;
-   private String name;
-   private float discountPercent;
-   private Date startDate;
-   private Date endDate;
-   private String status;
+public class PromotionsDTO {
+    private int promoID;
+    private String name;
+    private float discountPercent;
+    private Date startDate;
+    private Date endDate;
+    private String status;
 
-    public PromotionDTO(int promoID, String name, float discountPercent, Date startDate, Date endDate, String status) {
+    public PromotionsDTO(int promoID, String name, float discountPercent, Date startDate, Date endDate, String status) {
         this.promoID = promoID;
         this.name = name;
         this.discountPercent = discountPercent;
@@ -27,7 +27,7 @@ public class PromotionDTO {
         this.status = status;
     }
 
-    public PromotionDTO() {
+    public PromotionsDTO() {
     }
 
     public int getPromoID() {
@@ -77,5 +77,7 @@ public class PromotionDTO {
     public void setStatus(String status) {
         this.status = status;
     }
-   
+
+
+    
 }

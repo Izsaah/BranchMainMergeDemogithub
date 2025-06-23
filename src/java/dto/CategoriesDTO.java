@@ -8,10 +8,19 @@ package dto;
  *
  * @author ACER
  */
-public class CategoryDTO {
+public class CategoriesDTO {
     private int categoryID;
-    private String categoryNAME;
+    private String categoryName;
     private String description;
+
+    public CategoriesDTO(int categoryID, String categoryName, String description) {
+        this.categoryID = categoryID;
+        this.categoryName = categoryName;
+        this.description = description;
+    }
+
+    public CategoriesDTO() {
+    }
 
     public int getCategoryID() {
         return categoryID;
@@ -21,12 +30,12 @@ public class CategoryDTO {
         this.categoryID = categoryID;
     }
 
-    public String getCategoryNAME() {
-        return categoryNAME;
+    public String getCategoryName() {
+        return categoryName;
     }
 
-    public void setCategoryNAME(String categoryNAME) {
-        this.categoryNAME = categoryNAME;
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 
     public String getDescription() {
@@ -37,13 +46,6 @@ public class CategoryDTO {
         this.description = description;
     }
 
-    public CategoryDTO(int categoryID, String categoryNAME, String description) {
-        this.categoryID = categoryID;
-        this.categoryNAME = categoryNAME;
-        this.description = description;
-    }
-
-    public CategoryDTO() {
-    }
+    
     
 }

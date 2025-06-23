@@ -1,17 +1,24 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package dto;
 
-import java.util.Date;
-
-public class DeliveryDTO {
-    private int deliveryID;
+/**
+ *
+ * @author ACER
+ */
+public class DeliveriesDTO {
+     private int deliveryID;
     private int invoiceID;
     private String address;
-    private Date deliveryDate;
+    private String deliveryDate;
     private String status;
 
-    public DeliveryDTO() {}
+    public DeliveriesDTO() {
+    }
 
-    public DeliveryDTO(int deliveryID, int invoiceID, String address, Date deliveryDate, String status) {
+    public DeliveriesDTO(int deliveryID, int invoiceID, String address, String deliveryDate, String status) {
         this.deliveryID = deliveryID;
         this.invoiceID = invoiceID;
         this.address = address;
@@ -43,11 +50,11 @@ public class DeliveryDTO {
         this.address = address;
     }
 
-    public Date getDeliveryDate() {
+    public String getDeliveryDate() {
         return deliveryDate;
     }
 
-    public void setDeliveryDate(Date deliveryDate) {
+    public void setDeliveryDate(String deliveryDate) {
         this.deliveryDate = deliveryDate;
     }
 
@@ -58,7 +65,4 @@ public class DeliveryDTO {
     public void setStatus(String status) {
         this.status = status;
     }
-
-    
-
 }

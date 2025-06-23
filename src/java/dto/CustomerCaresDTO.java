@@ -8,7 +8,25 @@ package dto;
  *
  * @author ACER
  */
-public class CustomerCareDTO {
+public class CustomerCaresDTO {
+       private int ticketID;
+    private String userID;
+    private String subject;
+    private String content;
+    private String status;
+    private String reply;
+
+    public CustomerCaresDTO() {
+    }
+
+    public CustomerCaresDTO(int ticketID, String userID, String subject, String content, String status, String reply) {
+        this.ticketID = ticketID;
+        this.userID = userID;
+        this.subject = subject;
+        this.content = content;
+        this.status = status;
+        this.reply = reply;
+    }
 
     public int getTicketID() {
         return ticketID;
@@ -18,11 +36,11 @@ public class CustomerCareDTO {
         this.ticketID = ticketID;
     }
 
-    public UserDTO getUserID() {
+    public String getUserID() {
         return userID;
     }
 
-    public void setUserID(UserDTO userID) {
+    public void setUserID(String userID) {
         this.userID = userID;
     }
 
@@ -57,20 +75,4 @@ public class CustomerCareDTO {
     public void setReply(String reply) {
         this.reply = reply;
     }
-    private int ticketID;
-    private UserDTO userID;
-    private String subject;
-    private String content;
-    private String status;
-    private String reply;
-
-    public CustomerCareDTO(int ticketID, UserDTO userID, String subject, String content, String status, String reply) {
-        this.ticketID = ticketID;
-        this.userID = userID;
-        this.subject = subject;
-        this.content = content;
-        this.status = status;
-        this.reply = reply;
-    }
-    
 }
