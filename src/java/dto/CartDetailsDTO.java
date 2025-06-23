@@ -8,15 +8,18 @@ package dto;
  *
  * @author ACER
  */
-public class CartDetailDTO extends CartDTO{
+public class CartDetailsDTO {
     private int cartID;
     private int productID;
     private int quantity;
 
-    public CartDetailDTO(int cartID, int productID, int quantity) {
+    public CartDetailsDTO(int cartID, int productID, int quantity) {
         this.cartID = cartID;
         this.productID = productID;
         this.quantity = quantity;
+    }
+
+    public CartDetailsDTO() {
     }
 
     public int getCartID() {
@@ -42,7 +45,6 @@ public class CartDetailDTO extends CartDTO{
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
-
  
-    
+
 }

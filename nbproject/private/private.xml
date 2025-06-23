@@ -3,8 +3,26 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/ACER/OneDrive/Documents/GitHub/BranchMainMergeDemogithub/src/java/controller/UserController.java</file>
+            <file>file:/C:/Users/ACER/OneDrive/Documents/GitHub/BranchMainMergeDemogithub/src/java/dto/CartDTO.java</file>
+            <file>file:/C:/Users/ACER/OneDrive/Documents/GitHub/BranchMainMergeDemogithub/src/java/dao/ProductDAO.java</file>
+            <file>file:/C:/Users/ACER/OneDrive/Documents/GitHub/BranchMainMergeDemogithub/src/java/dto/ReturnDTO.java</file>
+            <file>file:/C:/Users/ACER/OneDrive/Documents/GitHub/BranchMainMergeDemogithub/src/java/dao/DeliveryDAO.java</file>
+            <file>file:/C:/Users/ACER/OneDrive/Documents/GitHub/BranchMainMergeDemogithub/src/java/dto/PromotionDTO.java</file>
+            <file>file:/C:/Users/ACER/OneDrive/Documents/GitHub/BranchMainMergeDemogithub/src/java/dto/CustomerCareDTO.java</file>
+            <file>file:/C:/Users/ACER/OneDrive/Documents/GitHub/BranchMainMergeDemogithub/src/java/dao/CartDAO.java</file>
+            <file>file:/C:/Users/ACER/OneDrive/Documents/GitHub/BranchMainMergeDemogithub/src/java/dto/DeliveryDTO.java</file>
+            <file>file:/C:/Users/ACER/OneDrive/Documents/GitHub/BranchMainMergeDemogithub/src/java/controller/ProductController.java</file>
             <file>file:/C:/Users/ACER/OneDrive/Documents/GitHub/BranchMainMergeDemogithub/src/java/dao/UserDAO.java</file>
+            <file>file:/C:/Users/ACER/OneDrive/Documents/GitHub/BranchMainMergeDemogithub/src/java/dto/UserDTO.java</file>
+            <file>file:/C:/Users/ACER/OneDrive/Documents/GitHub/BranchMainMergeDemogithub/src/java/dao/InvoiceDAO.java</file>
+            <file>file:/C:/Users/ACER/OneDrive/Documents/GitHub/BranchMainMergeDemogithub/src/java/dto/InvoiceDTO.java</file>
+            <file>file:/C:/Users/ACER/OneDrive/Documents/GitHub/BranchMainMergeDemogithub/src/java/dto/CategoryDTO.java</file>
+            <file>file:/C:/Users/ACER/OneDrive/Documents/GitHub/BranchMainMergeDemogithub/src/java/dto/ProductDTO.java</file>
+            <file>file:/C:/Users/ACER/OneDrive/Documents/GitHub/BranchMainMergeDemogithub/src/java/controller/MainController.java</file>
+            <file>file:/C:/Users/ACER/OneDrive/Documents/GitHub/BranchMainMergeDemogithub/src/java/dao/PromotionDAO.java</file>
+            <file>file:/C:/Users/ACER/OneDrive/Documents/GitHub/BranchMainMergeDemogithub/src/java/utils/DBUtil.java</file>
+            <file>file:/C:/Users/ACER/OneDrive/Documents/GitHub/BranchMainMergeDemogithub/src/java/dto/CartDetailDTO.java</file>
+            <file>file:/C:/Users/ACER/OneDrive/Documents/GitHub/BranchMainMergeDemogithub/src/java/dao/ReturnDAO.java</file>
         </group>
     </open-files>
 </project-private>

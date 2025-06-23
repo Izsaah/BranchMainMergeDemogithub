@@ -8,27 +8,22 @@ package dto;
  *
  * @author ACER
  */
-public class UserDTO {
-    private String userID;
+public class UsersDTO {
+     private String userID;
     private String fullName;
     private String roleID;
     private String password;
     private String phone;
-    //login user
-    public UserDTO(String userID, String fullName, String roleID) {
-    this.userID = userID;
-    this.fullName = fullName;
-    this.roleID = roleID;
-}   //holder user
-    public UserDTO(String userID, String fullName, String roleID, String password, String phone) {
+
+    public UsersDTO() {
+    }
+
+    public UsersDTO(String userID, String fullName, String roleID, String password, String phone) {
         this.userID = userID;
         this.fullName = fullName;
         this.roleID = roleID;
         this.password = password;
         this.phone = phone;
-    }
-
-    public UserDTO() {
     }
 
     public String getUserID() {
@@ -70,6 +65,5 @@ public class UserDTO {
     public void setPhone(String phone) {
         this.phone = phone;
     }
-
-
+    
 }
