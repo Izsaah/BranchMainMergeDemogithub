@@ -30,7 +30,8 @@ public class MainController extends HttpServlet {
                 controller = "login.jsp";
             } else {
                 switch (action) {
-                    // User Actions
+
+                    // 🔐 User Actions
                     case "Login":
                     case "Logout":
                     case "AddUser":
@@ -39,49 +40,63 @@ public class MainController extends HttpServlet {
                     case "DeleteUser":
                         controller = "UserController?action=" + action;
                         break;
-
-                    // Product Actions
+                    // 🛍 Product Actions
                     case "AddProduct":
                     case "ListProducts":
                     case "UpdateProduct":
                     case "DeleteProduct":
+                    case "ShowProductForm":
+                    case "SearchProducts":
                         controller = "ProductController?action=" + action;
                         break;
 
-                    // Category Actions
-                    case "AddCategory":
+                    // 📂 Category
                     case "ListCategories":
+                    case "AddCategory":
+                    case "UpdateCategory":
+                    case "DeleteCategory":
                         controller = "CategoryController?action=" + action;
                         break;
-
-                    // Promotion
+                    //promotion
+                    case "ListPromotions":
                     case "AddPromotion":
-                        controller = "PromotionController?action=AddPromotion";
+                    case "UpdatePromotion":
+                    case "DeletePromotion":
+                    case "EditPromotion":
+                    case "SearchPromotions":
+                        controller = "PromotionController?action=" + action;
                         break;
 
-                    // Cart
+                    // 🛒 Cart
+                    case "AddToCart":
                     case "ViewCart":
-                        controller = "CartController?action=ViewCart";
-                        break;
-
-                    // Checkout & Invoice
+                    case "UpdateCart":
+                    case "RemoveFromCart":
                     case "Checkout":
-                        controller = "InvoiceController?action=Checkout";
+                        controller = "CartController?action=" + action;
+                        break;
+                    // 🧾 Invoices
+                    case "ListInvoices":
+                    case "ViewInvoice":
+                        controller = "InvoiceController?action=" + action;
                         break;
 
-                    // Delivery
-                    case "TrackDelivery":
-                        controller = "DeliveryController?action=TrackDelivery";
+                    // 🚚 Delivery
+                    case "ListDeliveries":
+                    case "UpdateDelivery":
+                        controller = "DeliveryController?action=" + action;
                         break;
 
-                    // Returns
-                    case "SubmitReturn":
-                        controller = "ReturnController?action=SubmitReturn";
+                    // 🔁 Returns
+                    case "RequestReturn":
+                    case "HandleReturn":
+                        controller = "ReturnController?action=" + action;
                         break;
 
-                    // Customer Support
-                    case "CustomerSupport":
-                        controller = "CustomerCareController?action=CustomerSupport";
+                    // 🎧 Customer Care
+                    case "SendTicket":
+                    case "ReplyTicket":
+                        controller = "CustomerCareController?action=" + action;
                         break;
 
                     default:

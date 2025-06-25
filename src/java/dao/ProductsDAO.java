@@ -1,27 +1,15 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package dao;
+
 import dto.ProductsDTO;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
 import utils.DBUtil;
-/**
- *
- * @author ACER
- */
+import java.sql.*;
+import java.util.*;
+
 public class ProductsDAO {
-    
-    // Add new product
-    public boolean addProduct(ProductsDTO product) {
+
+    public boolean addProduct(ProductsDTO product) throws Exception {
         String sql = "INSERT INTO tblProducts(name, categoryID, price, quantity, sellerID, status) VALUES (?, ?, ?, ?, ?, ?)";
-        try (Connection con = DBUtil.getConnection();
-             PreparedStatement ps = con.prepareStatement(sql)) {
+        try (Connection con = DBUtil.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setString(1, product.getName());
             ps.setInt(2, product.getCategoryID());
             ps.setFloat(3, product.getPrice());
@@ -29,115 +17,53 @@ public class ProductsDAO {
             ps.setString(5, product.getSellerID());
             ps.setString(6, product.getStatus());
             return ps.executeUpdate() > 0;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
         }
     }
 
-    // Get all products
-    public List<ProductsDTO> getAllProducts() {
+    public List<ProductsDTO> getAllProducts() throws Exception {
         List<ProductsDTO> list = new ArrayList<>();
         String sql = "SELECT * FROM tblProducts ORDER BY productID DESC";
-        try (Connection con = DBUtil.getConnection();
-             Statement st = con.createStatement();
-             ResultSet rs = st.executeQuery(sql)) {
-            while (rs.next()) {
-                list.add(new ProductsDTO(
-                    rs.getInt("productID"),
-                    rs.getString("name"),
-                    rs.getInt("categoryID"),
-                    rs.getFloat("price"),
-                    rs.getInt("quantity"),
-                    rs.getString("sellerID"),
-                    rs.getString("status")
-                ));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+        try (Connection con = DBUtil.getConnection(); Statement st = con.createStatement(); ResultSet rs = st.executeQuery(sql)) {
+            while (rs.next()) list.add(map(rs));
         }
         return list;
     }
 
-    // Get product by ID
-    public ProductsDTO getProductByID(int productID) {
+    public ProductsDTO getProductByID(int productID) throws Exception {
         String sql = "SELECT * FROM tblProducts WHERE productID = ?";
-        try (Connection con = DBUtil.getConnection();
-             PreparedStatement ps = con.prepareStatement(sql)) {
+        try (Connection con = DBUtil.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, productID);
             ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                return new ProductsDTO(
-                    rs.getInt("productID"),
-                    rs.getString("name"),
-                    rs.getInt("categoryID"),
-                    rs.getFloat("price"),
-                    rs.getInt("quantity"),
-                    rs.getString("sellerID"),
-                    rs.getString("status")
-                );
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+            if (rs.next()) return map(rs);
         }
         return null;
     }
 
-    // Get products by category
-    public List<ProductsDTO> getProductsByCategory(int categoryID) {
+    public List<ProductsDTO> getProductsByCategory(int categoryID) throws Exception {
         List<ProductsDTO> list = new ArrayList<>();
         String sql = "SELECT * FROM tblProducts WHERE categoryID = ?";
-        try (Connection con = DBUtil.getConnection();
-             PreparedStatement ps = con.prepareStatement(sql)) {
+        try (Connection con = DBUtil.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, categoryID);
             ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                list.add(new ProductsDTO(
-                    rs.getInt("productID"),
-                    rs.getString("name"),
-                    rs.getInt("categoryID"),
-                    rs.getFloat("price"),
-                    rs.getInt("quantity"),
-                    rs.getString("sellerID"),
-                    rs.getString("status")
-                ));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+            while (rs.next()) list.add(map(rs));
         }
         return list;
     }
 
-    // Get products by seller
-    public List<ProductsDTO> getProductsBySeller(String sellerID) {
+    public List<ProductsDTO> getProductsBySeller(String sellerID) throws Exception {
         List<ProductsDTO> list = new ArrayList<>();
         String sql = "SELECT * FROM tblProducts WHERE sellerID = ?";
-        try (Connection con = DBUtil.getConnection();
-             PreparedStatement ps = con.prepareStatement(sql)) {
+        try (Connection con = DBUtil.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setString(1, sellerID);
             ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                list.add(new ProductsDTO(
-                    rs.getInt("productID"),
-                    rs.getString("name"),
-                    rs.getInt("categoryID"),
-                    rs.getFloat("price"),
-                    rs.getInt("quantity"),
-                    rs.getString("sellerID"),
-                    rs.getString("status")
-                ));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+            while (rs.next()) list.add(map(rs));
         }
         return list;
     }
 
-    // Update product
-    public boolean updateProduct(ProductsDTO product) {
-        String sql = "UPDATE tblProducts SET name = ?, categoryID = ?, price = ?, quantity = ?, status = ? WHERE productID = ?";
-        try (Connection con = DBUtil.getConnection();
-             PreparedStatement ps = con.prepareStatement(sql)) {
+    public boolean updateProduct(ProductsDTO product) throws Exception {
+        String sql = "UPDATE tblProducts SET name=?, categoryID=?, price=?, quantity=?, status=? WHERE productID=?";
+        try (Connection con = DBUtil.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setString(1, product.getName());
             ps.setInt(2, product.getCategoryID());
             ps.setFloat(3, product.getPrice());
@@ -145,22 +71,78 @@ public class ProductsDAO {
             ps.setString(5, product.getStatus());
             ps.setInt(6, product.getProductID());
             return ps.executeUpdate() > 0;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
         }
     }
 
-    // Delete product
-    public boolean deleteProduct(int productID) {
+    public boolean deleteProduct(int productID) throws Exception {
         String sql = "DELETE FROM tblProducts WHERE productID = ?";
-        try (Connection con = DBUtil.getConnection();
-             PreparedStatement ps = con.prepareStatement(sql)) {
+        try (Connection con = DBUtil.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, productID);
             return ps.executeUpdate() > 0;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
         }
+    }
+public List<ProductsDTO> searchProducts(String keyword, Integer categoryID, String status, Float minPrice, Float maxPrice) {
+    List<ProductsDTO> list = new ArrayList<>();
+    StringBuilder sql = new StringBuilder("SELECT * FROM tblProducts WHERE 1=1");
+    List<Object> params = new ArrayList<>();
+
+    if (keyword != null && !keyword.trim().isEmpty()) {
+        sql.append(" AND name LIKE ?");
+        params.add("%" + keyword.trim() + "%");
+    }
+    if (categoryID != null && categoryID > 0) {
+        sql.append(" AND categoryID = ?");
+        params.add(categoryID);
+    }
+    if (status != null && !status.isEmpty()) {
+        sql.append(" AND status = ?");
+        params.add(status);
+    }
+    if (minPrice != null) {
+        sql.append(" AND price >= ?");
+        params.add(minPrice);
+    }
+    if (maxPrice != null) {
+        sql.append(" AND price <= ?");
+        params.add(maxPrice);
+    }
+
+    try (Connection con = DBUtil.getConnection();
+         PreparedStatement ps = con.prepareStatement(sql.toString())) {
+
+        for (int i = 0; i < params.size(); i++) {
+            ps.setObject(i + 1, params.get(i));
+        }
+
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            list.add(map(rs));
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+
+    return list;
+}
+public boolean reduceQuantity(int productID, int quantity) throws Exception {
+    String sql = "UPDATE tblProducts SET quantity = quantity - ? WHERE productID = ? AND quantity >= ?";
+    try (Connection con = DBUtil.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
+        ps.setInt(1, quantity);
+        ps.setInt(2, productID);
+        ps.setInt(3, quantity);
+        return ps.executeUpdate() > 0;
+    }
+}
+
+    private ProductsDTO map(ResultSet rs) throws SQLException {
+        return new ProductsDTO(
+            rs.getInt("productID"),
+            rs.getString("name"),
+            rs.getInt("categoryID"),
+            rs.getFloat("price"),
+            rs.getInt("quantity"),
+            rs.getString("sellerID"),
+            rs.getString("status")
+        );
     }
 }

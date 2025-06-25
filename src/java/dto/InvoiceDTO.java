@@ -1,29 +1,23 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package dto;
 
-/**
- *
- * @author ACER
- */
-public class InvoicesDTO {
+import java.sql.Date;
+
+public class InvoiceDTO {
     private int invoiceID;
     private String userID;
     private float totalAmount;
     private String status;
-    private String createdDate;
+    private Date createdDate;
 
-    public InvoicesDTO(int invoiceID, String userID, float totalAmount, String status, String createdDate) {
+    public InvoiceDTO() {
+    }
+
+    public InvoiceDTO(int invoiceID, String userID, float totalAmount, String status, Date createdDate) {
         this.invoiceID = invoiceID;
         this.userID = userID;
         this.totalAmount = totalAmount;
         this.status = status;
         this.createdDate = createdDate;
-    }
-
-    public InvoicesDTO() {
     }
 
     public int getInvoiceID() {
@@ -58,12 +52,11 @@ public class InvoicesDTO {
         this.status = status;
     }
 
-    public String getCreatedDate() {
+    public Date getCreatedDate() {
         return createdDate;
     }
 
-    public void setCreatedDate(String createdDate) {
+    public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
     }
-    
 }

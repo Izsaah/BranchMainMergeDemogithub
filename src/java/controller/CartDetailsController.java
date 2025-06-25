@@ -46,8 +46,7 @@ public class CartDetailsController extends HttpServlet {
 
                     ProductsDTO product = new ProductsDAO().getProductByID(productID);
                     if (product != null && product.getQuantity() >= quantity) {
-                        CartDetailsDTO detail = new CartDetailsDTO(cartID, productID, quantity);
-                        dao.addCartDetail(detail);
+                        dao.addOrUpdateItem(cartID, productID, quantity);
                         response.sendRedirect("MainController?action=ViewCart");
                     } else {
                         request.setAttribute("ERROR", "Invalid product or insufficient quantity.");
@@ -59,8 +58,7 @@ public class CartDetailsController extends HttpServlet {
                 case "RemoveFromCart": {
                     int cartID = Integer.parseInt(request.getParameter("cartID"));
                     int productID = Integer.parseInt(request.getParameter("productID"));
-
-                    dao.deleteCartDetail(cartID, productID);
+                    dao.removeItem(cartID, productID);
                     response.sendRedirect("MainController?action=ViewCart");
                     break;
                 }
@@ -69,16 +67,14 @@ public class CartDetailsController extends HttpServlet {
                     int cartID = Integer.parseInt(request.getParameter("cartID"));
                     int productID = Integer.parseInt(request.getParameter("productID"));
                     int quantity = Integer.parseInt(request.getParameter("quantity"));
-                    CartDetailsDTO cartDetail=new CartDetailsDTO(cartID, productID, quantity);
-                    dao.updateCartDetail(cartDetail);
+                    dao.updateItemQuantity(cartID, productID, quantity);
                     response.sendRedirect("MainController?action=ViewCart");
                     break;
                 }
 
                 case "ViewCartItems": {
                     int cartID = Integer.parseInt(request.getParameter("cartID"));
-
-                    List<CartDetailsDTO> list = dao.getCartDetailsByCartID(cartID);
+                    List<CartDetailsDTO> list = dao.getCartItems(cartID);
                     request.setAttribute("CART_ITEMS", list);
                     request.getRequestDispatcher("cartDetails.jsp").forward(request, response);
                     break;
