@@ -1,27 +1,19 @@
 package dto;
 
-public class InvoiceDetailsDTO {
-    private int invoiceID;
+public class InvoiceDetailItemDTO {
     private int productID;
+    private String productName;
     private int quantity;
     private float price;
 
-    public InvoiceDetailsDTO() {
+    public InvoiceDetailItemDTO() {
     }
 
-    public InvoiceDetailsDTO(int invoiceID, int productID, int quantity, float price) {
-        this.invoiceID = invoiceID;
+    public InvoiceDetailItemDTO(int productID, String productName, int quantity, float price) {
         this.productID = productID;
+        this.productName = productName;
         this.quantity = quantity;
         this.price = price;
-    }
-
-    public int getInvoiceID() {
-        return invoiceID;
-    }
-
-    public void setInvoiceID(int invoiceID) {
-        this.invoiceID = invoiceID;
     }
 
     public int getProductID() {
@@ -30,6 +22,14 @@ public class InvoiceDetailsDTO {
 
     public void setProductID(int productID) {
         this.productID = productID;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 
     public int getQuantity() {
@@ -46,5 +46,9 @@ public class InvoiceDetailsDTO {
 
     public void setPrice(float price) {
         this.price = price;
+    }
+
+    public float getSubtotal() {
+        return price * quantity;
     }
 }

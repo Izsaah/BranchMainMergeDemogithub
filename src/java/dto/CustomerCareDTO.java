@@ -1,25 +1,17 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package dto;
 
-/**
- *
- * @author ACER
- */
-public class CustomerCaresDTO {
-       private int ticketID;
+public class CustomerCareDTO {
+    private int ticketID;
     private String userID;
     private String subject;
     private String content;
     private String status;
     private String reply;
 
-    public CustomerCaresDTO() {
+    public CustomerCareDTO() {
     }
 
-    public CustomerCaresDTO(int ticketID, String userID, String subject, String content, String status, String reply) {
+    public CustomerCareDTO(int ticketID, String userID, String subject, String content, String status, String reply) {
         this.ticketID = ticketID;
         this.userID = userID;
         this.subject = subject;
@@ -28,6 +20,7 @@ public class CustomerCaresDTO {
         this.reply = reply;
     }
 
+   
     public int getTicketID() {
         return ticketID;
     }
